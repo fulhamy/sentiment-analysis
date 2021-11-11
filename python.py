@@ -1,26 +1,11 @@
-import yfinance as yf
-import streamlit as st
 import psycopg2, os
 import pandas as pd
-import plotly.express as px
+from textblob import TextBlob
 
 # read database connection url from the enivron variable we just set.
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
 con = None
-
-hide_streamlit_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            </style>
-            """
-st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
-
-st.write("""
-# ABC News 
-Public consciousness is shaped by the News. The purpose of this project is to shine a light on how Australia's public broadcaster influences the public square in the digital age.
-""")
 
 try:
     # create a new database connection by calling the connect() function
@@ -49,14 +34,3 @@ finally:
     if con is not None:
         con.close()
         print('Database connection closed.')
-        
-# st.metric(label="Articles", value=int(Total), delta=None)
-
-fig = px.bar(px_data, x='date', y='articles')
-st.write("""
-## Articles by Year
-""")
-st.plotly_chart(fig, use_container_width=True)
-
-
-
