@@ -7,30 +7,33 @@ DATABASE_URL = os.environ.get('DATABASE_URL')
 
 con = None
 
-try:
-    # create a new database connection by calling the connect() function
-    con = psycopg2.connect(DATABASE_URL)
+for i in range(0, 8343244, 1):
 
-    #  create a new cursor
-    cur = con.cursor()
-    read_table = """SELECT date_trunc('year', date) as date, sum(articles) as articles from mymatview2 group by 1 order by 1"""
-    cur.execute(read_table)
-    df = pd.read_sql_query(read_table, con)
-    px_data = pd.read_sql_query(read_table, con)
-    df = df.set_index('date')
-    data = df
-    total_articles = int(df['articles'].sum())
-    cur.fetchall()
-    print(cur.fetchall())
-    print(data)
-     # close the communication with the HerokuPostgres
-    cur.close()
-except Exception as error:
-    print('Could not connect to the Database.')
-    print('Cause: {}'.format(error))
+    iteration = i
+    try:
+        # create a new database connection by calling the connect() function
+        con = psycopg2.connect(DATABASE_URL)
 
-finally:
-    # close the communication with the database server by calling the close()
-    if con is not None:
-        con.close()
-        print('Database connection closed.')
+        #  create a new cursor
+        cur = con.cursor()
+        read_table = """SELECT * from news_log where id = iteration """
+        cur.execute(read_table)
+        df = pd.read_sql_query(read_table, con)
+        px_data = pd.read_sql_query(read_table, con)
+        df = df.set_index('date')
+        data = df
+        
+        cur.fetchall()
+        print(cur.fetchall())
+        print(data)
+         # close the communication with the HerokuPostgres
+        cur.close()
+    except Exception as error:
+        print('Could not connect to the Database.')
+        print('Cause: {}'.format(error))
+
+    finally:
+        # close the communication with the database server by calling the close()
+        if con is not None:
+            con.close()
+            print('Database connection closed.')
