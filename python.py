@@ -20,7 +20,7 @@ for i in range(0, 8343244, 1):
         cur.execute(read_table)
         df = pd.read_sql_query(read_table, con)
         px_data = pd.read_sql_query(read_table, con)
-        df = df.set_index('date')
+        # df = df.set_index('date')
         data = df
         
         body_text = TextBlob(px_data.df['body'])
