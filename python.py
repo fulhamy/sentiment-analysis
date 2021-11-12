@@ -7,7 +7,7 @@ DATABASE_URL = os.environ.get('DATABASE_URL')
 
 con = None
 
-for i in range(0, 20, 1):
+for i in range(0, 220000, 1):
 
     iteration = i
     try:
