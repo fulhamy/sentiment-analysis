@@ -16,7 +16,7 @@ for i in range(0, 8343244, 1):
 
         #  create a new cursor
         cur = con.cursor()
-        read_table = """select index, "Source", title, published_at,body, "UID", published_by, body, id,subjectivity, polarity from news_log where subjectivity is null and polarity is null and length(body) > 20 order by id asc limit 1"""
+        read_table = """select index, "Source", title, published_at date,body, "UID", published_by, body, id,subjectivity, polarity from news_log where subjectivity is null and polarity is null and length(body) > 20 order by id asc limit 1"""
         cur.execute(read_table)
         df = pd.read_sql_query(read_table, con)
         px_data = pd.read_sql_query(read_table, con)
