@@ -33,6 +33,7 @@ for i in range(0, 20, 1):
             print(id_number)
 
             cur.execute('''UPDATE news_log SET subjectivity = %s, polarity = %s WHERE id = %s''',(subjectivity_score,polarity_score,id_number) )
+            cur.commit()
 
 
              # close the communication with the HerokuPostgres
