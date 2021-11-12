@@ -7,7 +7,7 @@ DATABASE_URL = os.environ.get('DATABASE_URL')
 
 con = None
 
-for i in range(0, 8343244, 1):
+for i in range(0, 20, 1):
 
     iteration = i
     try:
@@ -22,11 +22,15 @@ for i in range(0, 8343244, 1):
         records = cur.fetchall()
         
         for row in records:
-        
+            
             body_text = TextBlob(row[4])
+            print(body_text)
             polarity_score = body_text.sentiment.polarity
+            print(polarity_score)
             subjectivity_score = body_text.sentiment.subjectivity
+            print(subjectivity_score)
             id_number = row[8]
+            print(id_number)
 
             cur.execute('''UPDATE news_log SET subjectivity = %s, polarity = %s WHERE id = %s''',(subjectivity_score,polarity_score,id_number) )
 
