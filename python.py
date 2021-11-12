@@ -25,10 +25,10 @@ for i in range(0, 8343244, 1):
         
             body_text = TextBlob(row[5])
             polarity_score = body_text.sentiment.polarity
-            subjectivity_score = body_text.sentiment.polarity
+            subjectivity_score = body_text.sentiment.subjectivity
             id_number = row[9]
 
-            cur.execute('''UPDATE news_log SET subjectivity = subjectivity_score, polarity = polarity_score WHERE id = id_number''')
+            cur.execute('''UPDATE news_log SET subjectivity = %s, polarity = %s WHERE id = %s''',(subjectivity_score,polarity_score,id_number) )
 
 
              # close the communication with the HerokuPostgres
